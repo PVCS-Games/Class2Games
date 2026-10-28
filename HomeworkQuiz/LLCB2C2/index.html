@@ -670,9 +670,12 @@ for(const n of [6,7,8,9]){
       const header='Page '+i+': '+passed+'/'+rows.length+' ('+rows.filter(r=>r.review).length+' teacher review)';
       pageLines.push(header+' || '+rows.map((r,j)=>'Q'+(j+1)+' ['+(r.review?'TEACHER REVIEW':r.correct?'CORRECT':'WRONG')+'] '+r.question+' | Answer: '+r.response+' | Expected: '+r.expected).join(' || '));
     }
+    const quizName=String(window.QUIZ_DATA?.meta?.chapter || window.QUIZ_DATA?.meta?.quizName || '').trim();
+    if(!quizName){message.textContent='Missing meta.chapter or meta.quizName in quiz-data.json.';return;}
+    const chapter=quizName.replace(/\bLesson\s+(\d+)\b/i,'Chapter $1');
     const correct=all.filter(r=>!r.review&&r.correct).length;
     const review=all.filter(r=>r.review).length;
-    const details='Quiz: LLC B2 Chapter 2 | Student: '+name+' | Class: '+className+' | Correct: '+correct+' | Total: '+all.length+' | Teacher review: '+review+' | Teacher review responses: '+all.filter(r=>r.review).map(r=>r.question+' = '+r.response).join('; ');
+    const details='Quiz: '+chapter+' | Student: '+name+' | Class: '+className+' | Correct: '+correct+' | Total: '+all.length+' | Teacher review: '+review+' | Teacher review responses: '+all.filter(r=>r.review).map(r=>r.question+' = '+r.response).join('; ');
     // Explicit confirmation before the one-way Test Mode Google Forms submission.
     const confirmed=window.confirm(
       'Submit your Test Mode answers? / 确定提交测验吗？\n\n'+
@@ -684,7 +687,7 @@ for(const n of [6,7,8,9]){
     if(!confirmed){message.textContent='Submission cancelled. Your answers have not been sent. / 已取消提交，答案尚未发送。';return;}
     const target=document.createElement('iframe');target.name='quiz_form_'+Date.now();target.style.display='none';target.title='Google Form response target';document.body.append(target);
     const form=document.createElement('form');form.method='POST';form.action=FORM_ACTION;form.target=target.name;form.style.display='none';form.acceptCharset='UTF-8';
-    addField(form,ENTRY.student,name);addField(form,ENTRY.classroom,className);addField(form,ENTRY.quiz,'LLC B2 Chapter 2');addField(form,ENTRY.correct,correct);addField(form,ENTRY.total,all.length);addField(form,ENTRY.details,details);
+    addField(form,ENTRY.student,name);addField(form,ENTRY.classroom,className);addField(form,ENTRY.quiz,chapter);addField(form,ENTRY.correct,correct);addField(form,ENTRY.total,all.length);addField(form,ENTRY.details,details);
     pageLines.forEach((line,i)=>addField(form,ENTRY.pages[i],line));
     document.body.append(form);
     try{form.submit();sent=true;send.disabled=true;bar.hidden=false;message.textContent='Submitted '+correct+'/'+all.length+' correct ('+review+' teacher-review items). Google Forms receipt cannot be verified here; please check Form responses.';}
