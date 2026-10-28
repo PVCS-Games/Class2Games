@@ -1359,9 +1359,9 @@
     "page4_comprehension": [
       2,
       1,
-      null,
       0,
-      null
+      0,
+      1
     ],
     "page5_vocabulary": [
       null,
@@ -1473,7 +1473,7 @@
       "Some Quiz 2 reading-based questions refer to a separate lesson text not included in this workbook; verify the selections against the textbook.",
       "The existing index.html was not available for runtime testing; the JSON preserves its field structure.",
       "The C5-6 first writing-row final phonetic clue is shí in the PDF, yielding an awkward phrase; preserved the printed clue and answer rather than silently rewriting the exercise.",
-      "For C5-3 questions 3 and 5, the PDF provides the choices but not the lesson passage needed to identify correct answers; their keys remain null."
+      "Page 4 questions 3 and 5 are answered by the supplied Chapter 5 lesson dialogue."
     ]
   }
 }
