@@ -262,13 +262,7 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
 <main class="stage"><section class="sheet">
 <h2>课文 · Lesson Dialogue <small style="font-size:15px;color:#64748b">Read the passage first</small></h2>
 <p class="instructions">请先读下面的课文，再回答问题。Emojis show each speaker.</p>
-<div class="dialogue4">
-<div class="dline4"><div class="speaker4">👩‍🏫 老师：</div><div class="utter4">今天，我们有两个新同学，请他们介绍自己。</div></div>
-<div class="dline4"><div class="speaker4">👦 友朋：</div><div class="utter4">大家好，我叫方友朋，今年八岁，我最喜欢游泳。</div></div>
-<div class="dline4"><div class="speaker4">👧 张莉：</div><div class="utter4">大家好，我叫张莉，今年七岁，我比较喜欢看书。</div></div>
-<div class="dline4"><div class="speaker4">👦 大文：</div><div class="utter4">你们好，我叫李大文。很高兴认识你们。</div></div>
-<div class="dline4"><div class="speaker4">👩‍🏫 老师：</div><div class="utter4">欢迎你们来中文学校学中文。</div></div>
-</div>
+<div class="dialogue4"></div>
 <hr style="border:0;border-top:1px solid #e2e8f0;margin:28px 0">
 <h2>II. 根据课文，回答问题 <small style="font-size:15px;color:#64748b">Answer Based on the Lesson</small></h2>
 <p class="instructions">Choose the correct answer for each question. Click 🔊 to hear the question.</p><div id="reading3"></div>
@@ -291,6 +285,10 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
 #chapterTab3.showpy3 .rt3,#chapterTab4.showpy4 .rt3{display:inline}
 #chapterTab3 .feedback3,#chapterTab4 .feedback3{font-size:14px;color:#526481;margin-top:9px;min-height:17px}
 #chapterTab4 .dialogue4{display:grid;gap:10px;margin:14px 0 6px}
+#chapterTab4 .dialogue4 rt{display:none;font:13px system-ui;color:#64748b}
+#chapterTab4.showpy4 .dialogue4 rt{display:revert}
+#chapterTab4 .dialogue-en4{display:none;font:15px/1.5 system-ui;color:#64748b;margin-top:5px}
+#chapterTab4.showen4 .dialogue-en4{display:block}
 #chapterTab4 .dline4{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #e3eaf4;border-radius:12px;background:#fafcff}
 #chapterTab4 .speaker4{flex:0 0 128px;font:700 22px system-ui;color:#3154a0}
 #chapterTab4 .utter4{font:30px/1.75 KaiTi,STKaiti,'Noto Serif CJK SC',serif;color:#22304a}
@@ -888,6 +886,26 @@ header:has(select[id^="mode"] option[value="test"]:checked) button[id^="hide"] {
     chapterContent.page8_fillGroups.forEach((group,i)=>group.rows.forEach((q,j)=>q[2]=answerKeys.page8_fill[i][j]));
     chapterContent.page9_trueFalse.forEach((q,i)=>q.splice(1,0,answerKeys.page9_true_false[i]));
     window.QUIZ_DATA=data;
+    // Populate lesson dialogue from quiz-data.json; do not hardcode chapter text here.
+    const dialogueRoot=document.querySelector('#chapterTab4 .dialogue4');
+    if(dialogueRoot && Array.isArray(data.content.lessonDialogue)){
+      dialogueRoot.replaceChildren();
+      for(const item of data.content.lessonDialogue){
+        const line=document.createElement('div');line.className='dline4';
+        const speaker=document.createElement('div');speaker.className='speaker4';
+        speaker.textContent=({'大文':'👦','张莉':'👧','心美':'👧','东明':'👦'}[item.speaker]||'🗣️')+' '+item.speaker+'：';
+        const utter=document.createElement('div');utter.className='utter4';
+        if(Array.isArray(item.tokens)&&item.tokens.length){
+          for(const token of item.tokens){
+            const ruby=document.createElement('ruby');ruby.append(document.createTextNode(token.zh));
+            const rt=document.createElement('rt');rt.textContent=token.py||'';ruby.append(rt);utter.append(ruby);
+          }
+        }else{utter.append(document.createTextNode(item.zh||''));}
+        const english=document.createElement('div');english.className='dialogue-en4';english.textContent=item.en||'';
+        utter.append(english);line.append(speaker,utter);dialogueRoot.append(line);
+      }
+    }
+
     if(data.meta){
       document.title=data.meta.title||document.title;
       const h=document.querySelector('#approvedTab1 h1');if(h&&data.meta.title)h.textContent=data.meta.title;
