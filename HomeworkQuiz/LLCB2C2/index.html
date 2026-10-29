@@ -885,6 +885,11 @@ header:has(select[id^="mode"] option[value="test"]:checked) button[id^="hide"] {
     chapterContent.page7_charRows.forEach((q,i)=>q.chars=answerKeys.page7_writing[i]);
     chapterContent.page8_fillGroups.forEach((group,i)=>group.rows.forEach((q,j)=>q[2]=answerKeys.page8_fill[i][j]));
     chapterContent.page9_trueFalse.forEach((q,i)=>q.splice(1,0,answerKeys.page9_true_false[i]));
+    const page4Response=await fetch('page4-essay.json',{cache:'no-store'});
+    if(!page4Response.ok)throw new Error('Page 4 essay HTTP '+page4Response.status);
+    const page4Data=await page4Response.json();
+    if(!Array.isArray(page4Data.lessonDialogue))throw new Error('Missing Page 4 essay lines');
+    data.content.lessonDialogue=page4Data.lessonDialogue;
     window.QUIZ_DATA=data;
     // Populate lesson dialogue from quiz-data.json; do not hardcode chapter text here.
     const dialogueRoot=document.querySelector('#chapterTab4 .dialogue4');

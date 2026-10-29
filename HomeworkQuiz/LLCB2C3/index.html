@@ -12,7 +12,7 @@
 #match6 .matching-choice6.linked6{border-color:#779bda;background:#f0f5ff}
 #match6 .matching-choice6:disabled{cursor:default}
 @media(max-width:600px){#match6 .matching-board6{column-gap:70px;padding:8px 0}#match6 .matching-choice6{min-height:48px;font-size:19px}#match6 .matching-choice6.han6{font-size:27px}}
-</style></head><body><nav class="chapter-tabs" aria-label="Chapter pages"><button class="chapter-tab active" type="button" data-chapter-tab="1">Page 1 · 听一听 / 圈一圈</button><button class="chapter-tab" type="button" data-chapter-tab="2">Page 2 · 填一填</button><button class="chapter-tab" type="button" data-chapter-tab="3">Page 3 · 听力圈一圈</button><button class="chapter-tab" type="button" data-chapter-tab="4">Page 4 · 课文问答</button><button class="chapter-tab" type="button" data-chapter-tab="5">Page 5 · 综合听力测验</button><button class="chapter-tab" type="button" data-chapter-tab="6">Page 6 · 连一连 + 汉字</button><button class="chapter-tab" type="button" data-chapter-tab="7">Page 7 · 写一写</button><button class="chapter-tab" type="button" data-chapter-tab="8">Page 8 · 填一填</button><button class="chapter-tab" type="button" data-chapter-tab="9">Page 9 · 阅读理解</button></nav><div id="approvedTab1">
+</style><style>#chapterTab4 .dialogue4 rt{display:none;font:13px system-ui;color:#64748b}#chapterTab4.showpy4 .dialogue4 rt{display:revert}#chapterTab4 .dialogue-en4{display:none;font:15px/1.5 system-ui;color:#64748b;margin-top:5px}#chapterTab4.showen4 .dialogue-en4{display:block}</style></head><body><nav class="chapter-tabs" aria-label="Chapter pages"><button class="chapter-tab active" type="button" data-chapter-tab="1">Page 1 · 听一听 / 圈一圈</button><button class="chapter-tab" type="button" data-chapter-tab="2">Page 2 · 填一填</button><button class="chapter-tab" type="button" data-chapter-tab="3">Page 3 · 听力圈一圈</button><button class="chapter-tab" type="button" data-chapter-tab="4">Page 4 · 课文问答</button><button class="chapter-tab" type="button" data-chapter-tab="5">Page 5 · 综合听力测验</button><button class="chapter-tab" type="button" data-chapter-tab="6">Page 6 · 连一连 + 汉字</button><button class="chapter-tab" type="button" data-chapter-tab="7">Page 7 · 写一写</button><button class="chapter-tab" type="button" data-chapter-tab="8">Page 8 · 填一填</button><button class="chapter-tab" type="button" data-chapter-tab="9">Page 9 · 阅读理解</button></nav><div id="approvedTab1">
 <header><h1>LLC Book 2 · 第一课 — Interactive Workbook</h1><p class="sub">Tab 1 · 平时小考（一） · C1-1</p><div class="bar"><label for="student">Name / 姓名:</label><input id="student" placeholder="Enter student name"><label for="classroom">Class / 班级:</label><input id="classroom" placeholder="Enter class"><label for="mode">Test Mode / 测验模式:</label><select id="mode"><option value="practice">Practice Mode · 练习</option><option value="test">Test Mode · 测验</option></select></div><div class="tools"><button class="primary" id="check">Check This Page / 检查本页</button><button class="primary hidden" id="submit">Submit All / 提交全部</button><button class="secondary" id="hide">Hide Results</button><button class="secondary" id="reset">Clear Answers / 清除答案</button></div><div class="result" id="result" aria-live="polite"></div></header>
 <main class="stage"><section class="sheet"><h2>I. 听一听，圈一圈 <small style="font-size:15px;color:#64748b">Listen and Circle</small></h2><p class="instructions han">将听到的第一个词用圆形圈起来，第二个词用三角形圈出来，第三个词用正方形圈出来。</p><p class="instructions">Circle the first vocabulary word with a round shape, the second with a triangle, and the third with a square.</p><div class="audio-panel"><strong>🔊 Part 1 · 听一听，圈一圈 · Original Recording</strong><audio controls preload="none" aria-label="Original listening recording"><source src="" data-quiz-asset="media1" type="audio/mpeg">Your browser does not support audio playback.</audio></div><div class="legend"><span>① ◯ First word · 圆形</span><span>② △ Second word · 三角形</span><span>③ □ Third word · 正方形</span></div><p class="mode-note">Click a word to cycle: ◯ → △ → □ → clear. Listen to the recording, then mark each word in the order heard. All three listening questions are automatically graded.</p><div class="qrow"><div class="num">例</div><div class="words" id="example"></div></div><div id="listenRows"></div><hr style="border:0;border-top:1px solid #e2e8f0;margin:30px 0"><h2>II. 圈一圈 <small style="font-size:15px;color:#64748b">Circle</small></h2><p class="instructions">请选择正确的图片。Choose the matching picture.</p><div class="imageq" id="pictureRows"></div></section></main>
 <script type="text/quiz-deferred">
@@ -262,13 +262,7 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
 <main class="stage"><section class="sheet">
 <h2>课文 · Lesson Dialogue <small style="font-size:15px;color:#64748b">Read the passage first</small></h2>
 <p class="instructions">请先读下面的课文，再回答问题。Emojis show each speaker.</p>
-<div class="dialogue4">
-<div class="dline4"><div class="speaker4">👩‍🏫 老师：</div><div class="utter4">今天，我们有两个新同学，请他们介绍自己。</div></div>
-<div class="dline4"><div class="speaker4">👦 友朋：</div><div class="utter4">大家好，我叫方友朋，今年八岁，我最喜欢游泳。</div></div>
-<div class="dline4"><div class="speaker4">👧 张莉：</div><div class="utter4">大家好，我叫张莉，今年七岁，我比较喜欢看书。</div></div>
-<div class="dline4"><div class="speaker4">👦 大文：</div><div class="utter4">你们好，我叫李大文。很高兴认识你们。</div></div>
-<div class="dline4"><div class="speaker4">👩‍🏫 老师：</div><div class="utter4">欢迎你们来中文学校学中文。</div></div>
-</div>
+<div class="dialogue4"></div>
 <hr style="border:0;border-top:1px solid #e2e8f0;margin:28px 0">
 <h2>II. 根据课文，回答问题 <small style="font-size:15px;color:#64748b">Answer Based on the Lesson</small></h2>
 <p class="instructions">Choose the correct answer for each question. Click 🔊 to hear the question.</p><div id="reading3"></div>
@@ -887,7 +881,33 @@ header:has(select[id^="mode"] option[value="test"]:checked) button[id^="hide"] {
     chapterContent.page7_charRows.forEach((q,i)=>q.chars=answerKeys.page7_writing[i]);
     chapterContent.page8_fillGroups.forEach((group,i)=>group.rows.forEach((q,j)=>q[2]=answerKeys.page8_fill[i][j]));
     chapterContent.page9_trueFalse.forEach((q,i)=>q.splice(1,0,answerKeys.page9_true_false[i]));
+    const page4Response=await fetch('page4-essay.json',{cache:'no-store'});
+    if(!page4Response.ok)throw new Error('Page 4 essay HTTP '+page4Response.status);
+    const page4Data=await page4Response.json();
+    if(!Array.isArray(page4Data.lessonDialogue))throw new Error('Missing Page 4 essay lines');
+    data.content.lessonDialogue=page4Data.lessonDialogue;
     window.QUIZ_DATA=data;
+    // Populate lesson dialogue from quiz-data.json; do not hardcode chapter text here.
+    const dialogueRoot=document.querySelector('#chapterTab4 .dialogue4');
+    if(dialogueRoot && Array.isArray(data.content.lessonDialogue)){
+      dialogueRoot.replaceChildren();
+      for(const item of data.content.lessonDialogue){
+        const line=document.createElement('div');line.className='dline4';
+        const speaker=document.createElement('div');speaker.className='speaker4';
+        speaker.textContent=({'大文':'👦','张莉':'👧','心美':'👧','东明':'👦'}[item.speaker]||'🗣️')+' '+item.speaker+'：';
+        const utter=document.createElement('div');utter.className='utter4';
+        if(Array.isArray(item.tokens)&&item.tokens.length){
+          for(const token of item.tokens){
+            const ruby=document.createElement('ruby');ruby.append(document.createTextNode(token.zh));
+            const rt=document.createElement('rt');rt.textContent=token.py||'';ruby.append(rt);utter.append(ruby);
+          }
+        }else{utter.append(document.createTextNode(item.zh||''));}
+        const english=document.createElement('div');english.className='dialogue-en4';english.textContent=item.en||'';
+        utter.append(english);line.append(speaker,utter);dialogueRoot.append(line);
+      }
+    }
+
+
     if(data.meta){
       document.title=data.meta.title||document.title;
       const h=document.querySelector('#approvedTab1 h1');if(h&&data.meta.title)h.textContent=data.meta.title;
