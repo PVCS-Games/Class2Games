@@ -975,7 +975,7 @@
   "assets": {
     "media1": "audio/B2-L04-Quiz1.mp3",
     "media2": "audio/B2-L04-Quiz2.mp3",
-    "media3": "audio/B2-L04-Test.mp3"
+    "media3": "audio/B2-L04-Test-.mp3"
   },
   "answerKeys": {
     "page1_listening": [
@@ -1114,7 +1114,7 @@
     "audioMappings": {
       "media1": "audio/B2-L04-Quiz1.mp3",
       "media2": "audio/B2-L04-Quiz2.mp3",
-      "media3": "audio/B2-L04-Test.mp3"
+      "media3": "audio/B2-L04-Test-.mp3"
     },
     "pageMapping": {
       "page1": "C4-1 and C4-2 listening shapes and pictures",
