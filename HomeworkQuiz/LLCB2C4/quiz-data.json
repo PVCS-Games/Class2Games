@@ -1128,9 +1128,10 @@
       "page9": "C4-8 reading true/false"
     },
     "cautions": [
-      "Original Chapter 4 recordings supplied and used to verify Page 1 shape listening, Page 3 vocabulary and both Page 5 sections. Page 1 picture choices visually checked; teacher confirmation pending.",
+      "Original Chapter 4 recordings supplied and used to verify Page 1 shape listening, Page 3 vocabulary and both Page 5 sections. Page 1 picture choices visually checked; teacher confirmation received.",
       "The PDF does not supply an answer key; non-audio answers were inferred from the printed exercises and passage.",
-      "The existing index.html was not supplied in this turn; relative-path audio loading and handling of unverified keys must be tested against it."
+      "The existing index.html was not supplied in this turn; relative-path audio loading and handling of unverified keys must be tested against it.",
+      "Teacher confirmed Page 1 picture keys and approved retaining 木 as the intended Page 6 answer for 末，东，机."
     ]
   }
 }
