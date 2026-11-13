@@ -1152,8 +1152,9 @@
       "C3-5 fourth word-bank entry is blank in the source; 吗 is contextually inferred from the fourth sentence.",
       "Page 3 choice pairs are assembled using vocabulary printed in C3-1 through C3-3 to match the five Quiz2 MP3 spoken words; they are not verbatim printed pairs.",
       "Test listening page 4 stems are reformulated as questions to fit the existing JSON UI; the corresponding options and correct answers follow C3-3.",
-      "Uploaded recordings confirm all existing Page 1 shape, Page 3 and Page 5 listening key indices. Corrected Page 1 picture 1 to B; picture confirmation pending. Page 5 final choice corrected to match all three foods spoken in the test. MP3 assets now use relative audio/ paths; Test audio uses a temporary immutable legacy JSON fallback until the original MP3 is uploaded.",
-      "Page 7 first sentence layout corrected to place 附 between 去 and 近 without changing its answer key."
+      "Uploaded recordings confirm all existing Page 1 shape, Page 3 and Page 5 listening key indices. Corrected Page 1 picture 1 to B; picture confirmation received. Page 5 final choice corrected to match all three foods spoken in the test. MP3 assets now use relative audio/ paths; Test audio uses a temporary immutable legacy JSON fallback until the original MP3 is uploaded.",
+      "Page 7 first sentence layout corrected to place 附 between 去 and 近 without changing its answer key.",
+      "Teacher confirmed all six Page 1 picture answers and approved retaining 木 for 东，机 and 口 for 可，同，问，右 on Page 6."
     ]
   }
 }
