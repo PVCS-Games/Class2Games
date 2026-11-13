@@ -14,20 +14,20 @@
 @media(max-width:600px){#match6 .matching-board6{column-gap:70px;padding:8px 0}#match6 .matching-choice6{min-height:48px;font-size:19px}#match6 .matching-choice6.han6{font-size:27px}}
 </style><style>#chapterTab4 .dialogue4 rt{display:none;font:13px system-ui;color:#64748b}#chapterTab4.showpy4 .dialogue4 rt{display:revert}#chapterTab4 .dialogue-en4{display:none;font:15px/1.5 system-ui;color:#64748b;margin-top:5px}#chapterTab4.showen4 .dialogue-en4{display:block}</style></head><body><nav class="chapter-tabs" aria-label="Chapter pages"><button class="chapter-tab active" type="button" data-chapter-tab="1">Page 1 · 听一听 / 圈一圈</button><button class="chapter-tab" type="button" data-chapter-tab="2">Page 2 · 填一填</button><button class="chapter-tab" type="button" data-chapter-tab="3">Page 3 · 听力圈一圈</button><button class="chapter-tab" type="button" data-chapter-tab="4">Page 4 · 课文问答</button><button class="chapter-tab" type="button" data-chapter-tab="5">Page 5 · 综合听力测验</button><button class="chapter-tab" type="button" data-chapter-tab="6">Page 6 · 连一连 + 汉字</button><button class="chapter-tab" type="button" data-chapter-tab="7">Page 7 · 写一写</button><button class="chapter-tab" type="button" data-chapter-tab="8">Page 8 · 填一填</button><button class="chapter-tab" type="button" data-chapter-tab="9">Page 9 · 阅读理解</button></nav><div id="approvedTab1">
 <header><h1>LLC Book 2 · 第一课 — Interactive Workbook</h1><p class="sub">Tab 1 · 平时小考（一） · C1-1</p><div class="bar"><label for="student">Name / 姓名:</label><input id="student" placeholder="Enter student name"><label for="classroom">Class / 班级:</label><input id="classroom" placeholder="Enter class"><label for="mode">Test Mode / 测验模式:</label><select id="mode"><option value="practice">Practice Mode · 练习</option><option value="test">Test Mode · 测验</option></select></div><div class="tools"><button class="primary" id="check">Check This Page / 检查本页</button><button class="primary hidden" id="submit">Submit All / 提交全部</button><button class="secondary" id="hide">Hide Results</button><button class="secondary" id="reset">Clear Answers / 清除答案</button></div><div class="result" id="result" aria-live="polite"></div></header>
-<main class="stage"><section class="sheet"><h2>I. 听一听，圈一圈 <small style="font-size:15px;color:#64748b">Listen and Circle</small></h2><p class="instructions han">将听到的第一个词用圆形圈起来，第二个词用三角形圈出来，第三个词用正方形圈出来。</p><p class="instructions">Circle the first vocabulary word with a round shape, the second with a triangle, and the third with a square.</p><div class="audio-panel"><strong>🔊 Part 1 · 听一听，圈一圈 · Original Recording</strong><audio controls preload="none" aria-label="Original listening recording"><source src="" data-quiz-asset="media1" type="audio/mpeg">Your browser does not support audio playback.</audio></div><div class="legend"><span>① ◯ First word · 圆形</span><span>② △ Second word · 三角形</span><span>③ □ Third word · 正方形</span></div><p class="mode-note">Click a word to cycle: ◯ → △ → □ → clear. Listen to the recording, then mark each word in the order heard. All three listening questions are automatically graded.</p><div class="qrow"><div class="num">例</div><div class="words" id="example"></div></div><div id="listenRows"></div><hr style="border:0;border-top:1px solid #e2e8f0;margin:30px 0"><h2>II. 圈一圈 <small style="font-size:15px;color:#64748b">Circle</small></h2><p class="instructions">请选择正确的图片。Choose the matching picture.</p><div class="imageq" id="pictureRows"></div></section></main>
+<main class="stage"><section class="sheet"><h2>I. 听一听，圈一圈 <small style="font-size:15px;color:#64748b">Listen and Circle</small></h2><p class="instructions han">将听到的第一个词用圆形圈起来，第二个词用三角形圈出来，第三个词用正方形圈出来。</p><p class="instructions">Circle the first vocabulary word with a round shape, the second with a triangle, and the third with a square.</p><div class="audio-panel"><strong>🔊 Part 1 · 听一听，圈一圈 · Original Recording</strong><audio controls preload="none" aria-label="Original listening recording"><source src="" data-quiz-asset="media1" type="audio/mpeg">Your browser does not support audio playback.</audio></div><div class="legend"><span>① ◯ First word · 圆形</span><span>② △ Second word · 三角形</span><span>③ □ Third word · 正方形</span></div><p class="mode-note">Click a word to cycle: ◯ → △ → □ → clear. Listen to the recording, then mark each word in the order heard. All listening questions are automatically graded.</p><div class="qrow"><div class="num">例</div><div class="words" id="example"></div></div><div id="listenRows"></div><hr style="border:0;border-top:1px solid #e2e8f0;margin:30px 0"><h2>II. 圈一圈 <small style="font-size:15px;color:#64748b">Circle</small></h2><p class="instructions">请选择正确的图片。Choose the matching picture.</p><div class="imageq" id="pictureRows"></div></section></main>
 <script type="text/quiz-deferred">
 const listen=window.QUIZ_DATA.content.page1_listen;
 // Audio answer key: circle = first heard, triangle = second, square = third.
 const listeningKey=window.QUIZ_DATA.content.page1_listeningKey;
 const example=window.QUIZ_DATA.content.page1_example;const exampleShapes=window.QUIZ_DATA.content.page1_exampleShapes;const shapeOrder=[null,'circle','triangle','square'];
-const picQuestions=window.QUIZ_DATA.content.page1_picQuestions;const answers=window.QUIZ_DATA.answerKeys.page1_pictures;let picSelections=[null,null,null,null];let hasChecked=false;
+const picQuestions=window.QUIZ_DATA.content.page1_picQuestions;const answers=window.QUIZ_DATA.answerKeys.page1_pictures;let picSelections=Array(picQuestions.length).fill(null);let hasChecked=false;
 function word(text,py,shape=null,disabled=false){let b=document.createElement('button');b.type='button';b.className='word han';b.innerHTML='<ruby>'+text+'<rt>'+py+'</rt></ruby>';if(shape)b.dataset.shape=shape;if(disabled)b.disabled=true;else b.onclick=()=>{let k=shapeOrder.indexOf(b.dataset.shape||null);b.dataset.shape=shapeOrder[(k+1)%shapeOrder.length]||'';b.classList.toggle('selected',!!b.dataset.shape)};return b;}
 example.forEach((w,i)=>document.getElementById('example').append(word(...w,exampleShapes[i],true)));
 listen.forEach((ws,i)=>{let r=document.createElement('div');r.className='qrow';r.innerHTML='<div class="num">'+(i+1)+'.</div><div class="words"></div>';ws.forEach(w=>r.querySelector('.words').append(word(...w)));document.getElementById('listenRows').append(r)});
 picQuestions.forEach((q,i)=>{let c=document.createElement('article');c.className='picturecard';c.innerHTML='<h3 class="han">'+(i+1)+'. <ruby>'+q[0]+'<rt style="font:12px system-ui;color:#718096">'+q[1]+'</rt></ruby></h3><div class="pictures"></div><div class="feedback" aria-live="polite"></div>';for(let j=0;j<2;j++){let btn=document.createElement('button');btn.type='button';btn.className='picbtn';btn.setAttribute('aria-label','Question '+(i+1)+', picture '+(j+1));btn.innerHTML='<span class="letter">'+(j?'B':'A')+'</span><img src="'+q[j+2]+'" alt="Picture option '+(j+1)+'">';btn.onclick=()=>{picSelections[i]=j;updatePictures();if(document.getElementById('mode').value==='practice')c.querySelector('.feedback').textContent='';};c.querySelector('.pictures').append(btn)}document.getElementById('pictureRows').append(c)});
 function updatePictures(){document.querySelectorAll('.picturecard').forEach((c,i)=>c.querySelectorAll('.picbtn').forEach((b,j)=>{b.classList.toggle('chosen',picSelections[i]===j);b.classList.toggle('correct',hasChecked&&picSelections[i]===j&&j===answers[i]);b.classList.toggle('wrong',hasChecked&&picSelections[i]===j&&j!==answers[i])}))}
 function scoreListening(){let correct=0,total=0;document.querySelectorAll('#listenRows .qrow').forEach((row,i)=>{let buttons=[...row.querySelectorAll('.word')];buttons.forEach((b,j)=>{const selected=b.dataset.shape||'';const expected=listeningKey[i][j]||'';total++;if(selected===expected)correct++;b.classList.toggle('correct-answer',hasChecked&&selected===expected);b.classList.toggle('wrong-answer',hasChecked&&selected!==expected);});});return {correct,total};}
-function check(){hasChecked=true;let ls=scoreListening();let correct=picSelections.filter((v,i)=>v===answers[i]).length;updatePictures();document.querySelectorAll('.picturecard').forEach((c,i)=>c.querySelector('.feedback').textContent=picSelections[i]===null?'Not answered':picSelections[i]===answers[i]?'✓ Correct':'✗ Try again');let el=document.getElementById('result');el.textContent='Listening: '+ls.correct+' / '+ls.total+' correct · Picture questions: '+correct+' / 4 correct · Overall: '+(ls.correct+correct)+' / '+(ls.total+4)+' correct.';el.classList.add('show');}
+function check(){hasChecked=true;let ls=scoreListening();let correct=picSelections.filter((v,i)=>v===answers[i]).length;updatePictures();document.querySelectorAll('.picturecard').forEach((c,i)=>c.querySelector('.feedback').textContent=picSelections[i]===null?'Not answered':picSelections[i]===answers[i]?'✓ Correct':'✗ Try again');let el=document.getElementById('result');el.textContent='Listening: '+ls.correct+' / '+ls.total+' correct · Picture questions: '+correct+' / '+picQuestions.length+' correct · Overall: '+(ls.correct+correct)+' / '+(ls.total+picQuestions.length)+' correct.';el.classList.add('show');}
 window.quizCapture=window.quizCapture||{};
 window.quizCapture[1]=()=>{
  const rows=[];
@@ -41,7 +41,7 @@ window.quizCapture[1]=()=>{
  picSelections.forEach((v,i)=>rows.push({question:'Picture '+(i+1),response:v===null?'(blank)':String(v+1),expected:String(answers[i]+1),correct:v===answers[i]}));
  return rows;
 };
-document.getElementById('check').onclick=check;document.getElementById('submit').onclick=()=>{let n=document.getElementById('student').value.trim(),c=document.getElementById('classroom').value.trim();if(!n||!c){let el=document.getElementById('result');el.textContent='Please enter Name and Class before submitting.';el.classList.add('show');return;}check();document.getElementById('submit').disabled=true};document.getElementById('hide').onclick=()=>{document.getElementById('result').classList.remove('show');document.querySelectorAll('.feedback').forEach(x=>x.textContent='');hasChecked=false;updatePictures();scoreListening()};document.getElementById('reset').onclick=()=>{picSelections=[null,null,null,null];hasChecked=false;document.querySelectorAll('#listenRows .word').forEach(b=>{b.dataset.shape='';b.classList.remove('selected')});document.querySelectorAll('.feedback').forEach(x=>x.textContent='');document.getElementById('result').classList.remove('show');document.getElementById('submit').disabled=false;updatePictures();scoreListening()};document.getElementById('mode').onchange=e=>{let test=e.target.value==='test';document.getElementById('check').classList.toggle('hidden',test);document.getElementById('submit').classList.toggle('hidden',!test);document.getElementById('result').classList.remove('show');hasChecked=false;updatePictures();scoreListening();document.querySelectorAll('.feedback').forEach(x=>x.textContent='');document.getElementById('submit').disabled=false};
+document.getElementById('check').onclick=check;document.getElementById('submit').onclick=()=>{let n=document.getElementById('student').value.trim(),c=document.getElementById('classroom').value.trim();if(!n||!c){let el=document.getElementById('result');el.textContent='Please enter Name and Class before submitting.';el.classList.add('show');return;}check();document.getElementById('submit').disabled=true};document.getElementById('hide').onclick=()=>{document.getElementById('result').classList.remove('show');document.querySelectorAll('.feedback').forEach(x=>x.textContent='');hasChecked=false;updatePictures();scoreListening()};document.getElementById('reset').onclick=()=>{picSelections=Array(picQuestions.length).fill(null);hasChecked=false;document.querySelectorAll('#listenRows .word').forEach(b=>{b.dataset.shape='';b.classList.remove('selected')});document.querySelectorAll('.feedback').forEach(x=>x.textContent='');document.getElementById('result').classList.remove('show');document.getElementById('submit').disabled=false;updatePictures();scoreListening()};document.getElementById('mode').onchange=e=>{let test=e.target.value==='test';document.getElementById('check').classList.toggle('hidden',test);document.getElementById('submit').classList.toggle('hidden',!test);document.getElementById('result').classList.remove('show');hasChecked=false;updatePictures();scoreListening();document.querySelectorAll('.feedback').forEach(x=>x.textContent='');document.getElementById('submit').disabled=false};
 </script>
 </div>
 <section id="chapterTab2" hidden>
@@ -181,7 +181,7 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
   let selected='';
   window.quizCapture[2]=()=>groups.flatMap((g,i)=>g.questions.map((q,j)=>({question:g.title+(j+1)+' '+q[0]+'____'+q[1],response:state[i][j]||'(blank)',expected:q[2],correct:state[i][j]===q[2]})));
   function grade(){let c=0;groups.forEach((g,i)=>g.questions.forEach((q,j)=>{if(state[i][j]===q[2])c++}));return c}
-  function check(){isChecked=true;render();let el=$('result2');el.textContent='Page 2: '+grade()+' / 8 correct.';el.classList.add('show')}
+  function check(){isChecked=true;render();let el=$('result2');el.textContent='Page 2: '+grade()+' / '+groups.reduce((n,g)=>n+g.questions.length,0)+' correct.';el.classList.add('show')}
   $('check2').onclick=check;
   $('submit2').onclick=()=>{
     if(!$('student2').value.trim()||!$('classroom2').value.trim()){let r=$('result2');r.textContent='Enter your Name / 姓名 and Class / 班级 before submitting.';r.classList.add('show');return}
@@ -295,9 +295,9 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
  const $=id=>document.getElementById(id);
  const listen=window.QUIZ_DATA.content.page3_listen;
  const questions=window.QUIZ_DATA.content.page4_questions;
- // Original audio answer sequence: 现在, 认识, 自己, 游泳, 欢迎, 新.
+ // Listening answers come from quiz-data.json.
  const listeningKey=window.QUIZ_DATA.content.page3_listeningKey;
- const ls=Array(6).fill(null),ans=Array(4).fill(null);
+ const ls=Array(listen.length).fill(null),ans=Array(questions.length).fill(null);
  let showing=false,showListening3=false,submitted3=false,submitted4=false;
  function speak(v){
     if(!('speechSynthesis'in window))return;
@@ -345,10 +345,10 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
  function check3(){
     showListening3=true;render();
     const correct=ls.filter((v,i)=>v===listeningKey[i]).length;
-    $('result3').textContent='Listening: '+correct+' / 6 correct.';
+    $('result3').textContent='Listening: '+correct+' / '+listen.length+' correct.';
     $('result3').classList.add('show');
  }
- function check4(){showing=true;render();$('result4').textContent='Comprehension: '+grade()+' / 4 correct.';$('result4').classList.add('show')}
+ function check4(){showing=true;render();$('result4').textContent='Comprehension: '+grade()+' / '+questions.length+' correct.';$('result4').classList.add('show')}
  $('check3').onclick=check3;
  $('check4').onclick=check4;
  $('submit3').onclick=()=>{
@@ -396,20 +396,20 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
  const $=id=>document.getElementById(id);
  const part1=window.QUIZ_DATA.content.page5_part1;
  const part2=window.QUIZ_DATA.content.page5_part2;
- const a=Array(6).fill(null),b=Array(5).fill(null);let results=false,submitted=false;
+ const a=Array(part1.length).fill(null),b=Array(part2.length).fill(null);let results=false,submitted=false;
  function renderPart(area,data,answers,type){$(area).replaceChildren();data.forEach((q,i)=>{
   const row=document.createElement('div');row.className='item5';
   const title=document.createElement('div');title.className='question5';title.textContent=type===1?(i+1)+'.':q.label+' '+q.pre+'（　　　）'+q.post;row.append(title);
   const opts=document.createElement('div');opts.className='optrow5';
-  q.opts.forEach((opt,j)=>{const btn=document.createElement('button');btn.type='button';btn.className='choice5'+(answers[i]===j?' selected':'')+(results&&answers[i]===j?(j===q.key?' good':' bad'):'');btn.innerHTML=opt+'<span class="py5">'+q.py[j]+'</span>';btn.onclick=()=>{if(submitted)return;answers[i]=j;results=false;$('result5').classList.remove('show');render()};opts.append(btn)});row.append(opts);
-  const english=document.createElement('div');english.className='hint5';english.textContent=q.en.join(' / ');row.append(english);
-  const feedback=document.createElement('div');feedback.className='feedback5';if(results)feedback.textContent=answers[i]===null?'Not answered':answers[i]===q.key?'Correct!':'Try again';row.append(feedback);$(area).append(row);
+  q.opts.forEach((opt,j)=>{const btn=document.createElement('button');btn.type='button';btn.className='choice5'+(answers[i]===j?' selected':'')+(results&&Number.isInteger(q.key)&&answers[i]===j?(j===q.key?' good':' bad'):'');btn.textContent=opt;const py=q.py?.[j];if(py){const hint=document.createElement('span');hint.className='py5';hint.textContent=py;btn.append(hint);}btn.onclick=()=>{if(submitted)return;answers[i]=j;results=false;$('result5').classList.remove('show');render()};opts.append(btn)});row.append(opts);
+  const english=document.createElement('div');english.className='hint5';english.textContent=(q.en||[]).join(' / ');row.append(english);
+  const feedback=document.createElement('div');feedback.className='feedback5';if(results)feedback.textContent=answers[i]===null?'Not answered':!Number.isInteger(q.key)?'Answer key unavailable':answers[i]===q.key?'Correct!':'Try again';row.append(feedback);$(area).append(row);
  })}
  function render(){renderPart('listen5',part1,a,1);renderPart('sentences5',part2,b,2)}
- function check(){results=true;render();const correct=a.filter((v,i)=>v===part1[i].key).length+b.filter((v,i)=>v===part2[i].key).length;$('result5').textContent='Page 5: '+correct+' / 11 correct (Part I: '+a.filter((v,i)=>v===part1[i].key).length+'/6; Part II: '+b.filter((v,i)=>v===part2[i].key).length+'/5).';$('result5').classList.add('show')}
+ function check(){results=true;render();const tally=(data,answers)=>({correct:data.filter((q,i)=>Number.isInteger(q.key)&&answers[i]===q.key).length,graded:data.filter(q=>Number.isInteger(q.key)).length});const x=tally(part1,a),y=tally(part2,b),total=part1.length+part2.length,graded=x.graded+y.graded;$('result5').textContent=graded?'Page 5: '+(x.correct+y.correct)+' / '+graded+' correct (Part I: '+x.correct+'/'+x.graded+'; Part II: '+y.correct+'/'+y.graded+').'+(graded<total?' '+(total-graded)+' ungraded.':''):'Page 5: '+a.concat(b).filter(v=>v!==null).length+' / '+total+' answered. Answer key unavailable; no score calculated.';$('result5').classList.add('show')}
  window.quizCapture[5]=()=>[
-  ...part1.map((q,i)=>({question:'Listening Part I '+(i+1),response:a[i]===null?'(blank)':q.opts[a[i]],expected:q.opts[q.key],correct:a[i]===q.key})),
-  ...part2.map((q,i)=>({question:'Listening Part II '+q.label,response:b[i]===null?'(blank)':q.opts[b[i]],expected:q.opts[q.key],correct:b[i]===q.key}))
+  ...part1.map((q,i)=>({question:'Listening Part I '+(i+1),response:a[i]===null?'(blank)':q.opts[a[i]],expected:Number.isInteger(q.key)?q.opts[q.key]:'(ungraded)',correct:Number.isInteger(q.key)?a[i]===q.key:null})),
+  ...part2.map((q,i)=>({question:'Listening Part II '+q.label,response:b[i]===null?'(blank)':q.opts[b[i]],expected:Number.isInteger(q.key)?q.opts[q.key]:'(ungraded)',correct:Number.isInteger(q.key)?b[i]===q.key:null}))
  ];
  $('check5').onclick=check;
  $('submit5').onclick=()=>{if(!$('student5').value.trim()||!$('classroom5').value.trim()){$('result5').textContent='Enter your name and class before submitting.';$('result5').classList.add('show');return}check();submitted=true;$('submit5').disabled=true};
@@ -455,7 +455,7 @@ const $=id=>document.getElementById(id);
 const report=(n,txt)=>{$('result'+n).textContent=txt;$('result'+n).classList.add('show')};
 const speak=(t)=>{if(!('speechSynthesis'in window))return; speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=.82; const zh=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('zh'));if(zh)u.voice=zh;speechSynthesis.speak(u)};
 const play=(t)=>{let b=document.createElement('button');b.type='button';b.className='rest-audio';b.textContent='🔊';b.title='Read aloud';b.onclick=(e)=>{e.stopPropagation();speak(t)};return b};
-const state={6:{matched:Array(window.QUIZ_DATA.content.page6_matches.length).fill(null),active:null,rad:Array(window.QUIZ_DATA.content.page6_radicalQuestions.length).fill(''),show:false,locked:false},7:{answers:Array(window.QUIZ_DATA.content.page7_charRows.reduce((n,q)=>n+(q.py?.length||0),0)).fill(''),show:false,locked:false},8:{filled:[Array(3).fill(''),Array(3).fill('')],sel:null,show:false,locked:false},9:{answers:Array(7).fill(null),show:false,locked:false}};
+const state={6:{matched:Array(window.QUIZ_DATA.content.page6_matches.length).fill(null),active:null,rad:Array(window.QUIZ_DATA.content.page6_radicalQuestions.length).fill(''),show:false,locked:false},7:{answers:Array(window.QUIZ_DATA.content.page7_charRows.reduce((n,q)=>n+(q.py?.length||0),0)).fill(''),show:false,locked:false},8:{filled:window.QUIZ_DATA.content.page8_fillGroups.map(g=>Array(g.rows.length).fill('')),sel:null,show:false,locked:false},9:{answers:Array(window.QUIZ_DATA.content.page9_trueFalse.length).fill(null),show:false,locked:false}};
 const matches=window.QUIZ_DATA.content.page6_matches;
 const pinyinBank6=window.QUIZ_DATA.content.page6_pinyinBank;
 const matchedText6=i=>Number.isInteger(i)?pinyinBank6[i]:null;
@@ -539,7 +539,7 @@ const passage=window.QUIZ_DATA.content.page9_passage;
 const tf=window.QUIZ_DATA.content.page9_trueFalse;
 function draw9(){let S=state[9],p=$('passage9');p.replaceChildren();let passageBox=document.createElement('div');passageBox.className='rest-essay';passageBox.textContent=passage;let audio=play(passage);p.append(passageBox,audio);let qs=$('questions9');qs.replaceChildren();tf.forEach(([q,key,en],i)=>{let line=document.createElement('div');line.className='rest-panel';let question=document.createElement('div');question.className='rest-line';question.textContent=(i+1)+'. '+q;question.append(play(q));line.append(question);let opts=document.createElement('div');opts.className='rest-bank';[['对',true],['错',false]].forEach(([label,v])=>{let b=document.createElement('button');b.type='button';b.className='rest-option'+(S.answers[i]===v?' chosen':'')+(S.show&&S.answers[i]===v?(v===key?' good':' bad'):'');b.textContent=label;b.onclick=()=>{if(S.locked)return;S.answers[i]=v;S.show=false;draw9()};opts.append(b)});line.append(opts);let eng=document.createElement('div');eng.className='rest-en';eng.textContent=en;line.append(eng);qs.append(line)})}
 const render={6:draw6,7:draw7,8:draw8,9:draw9};
-const scores={6:()=>[state[6].matched.filter((v,i)=>matchedText6(v)===matches[i][1]).length,matches.length,'Component answers require teacher review'],7:()=>[state[7].answers.filter((v,i)=>v===charRows.flatMap(q=>q.chars)[i]).length,charRows.flatMap(q=>q.chars).length,'Character writing checked by typed text'],8:()=>[state[8].filled.reduce((n,a,i)=>n+a.filter((v,j)=>v===fillGroups[i].rows[j][2]).length,0),fillGroups.reduce((n,g)=>n+g.rows.length,0),''],9:()=>[state[9].answers.filter((v,i)=>v===tf[i][1]).length,7,'']};
+const scores={6:()=>[state[6].matched.filter((v,i)=>matchedText6(v)===matches[i][1]).length,matches.length,'Component answers require teacher review'],7:()=>[state[7].answers.filter((v,i)=>v===charRows.flatMap(q=>q.chars)[i]).length,charRows.flatMap(q=>q.chars).length,'Character writing checked by typed text'],8:()=>[state[8].filled.reduce((n,a,i)=>n+a.filter((v,j)=>v===fillGroups[i].rows[j][2]).length,0),fillGroups.reduce((n,g)=>n+g.rows.length,0),''],9:()=>[state[9].answers.filter((v,i)=>v===tf[i][1]).length,tf.length,'']};
 window.quizCapture[6]=()=>[
  ...matches.map((q,i)=>({question:'Match '+q[0],response:matchedText6(state[6].matched[i])??'(blank)',expected:q[1],correct:matchedText6(state[6].matched[i])===q[1]})),
  ...state[6].rad.map((r,i)=>({question:'Common radical '+(i+1),response:r||'(blank)',expected:window.QUIZ_DATA.answerKeys.page6_radicals[i],correct:false,review:true}))
@@ -925,7 +925,26 @@ header:has(select[id^="mode"] option[value="test"]:checked) button[id^="hide"] {
           for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
           element.src=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));
         }catch(err){console.warn('Embedded MP3 conversion failed',err);element.src=url;}
-      }else element.src=url;
+      }else {
+        // Prefer the normal relative MP3. Until the final Test file is uploaded,
+        // recover the original unchanged audio from the previous public commit.
+        if(element.dataset.quizAsset==='media3'){
+          const player=element.parentElement;
+          const fallback=async()=>{
+            try{
+              const res=await fetch('https://raw.githubusercontent.com/PVCS-Games/Class2Games/a58c3bf68fe8ab68da266138d5313213d94a6de8/HomeworkQuiz/LLCB2C3/quiz-data.json');
+              if(!res.ok)throw new Error('Legacy audio HTTP '+res.status);
+              const old=await res.json();
+              const binary=atob(old.assets.media3.split(',')[1]);
+              const bytes=Uint8Array.from(binary,ch=>ch.charCodeAt(0));
+              element.src=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));
+              player?.load?.();
+            }catch(err){console.warn('Test audio fallback unavailable',err);}
+          };
+          element.addEventListener('error',fallback,{once:true});
+        }
+        element.src=url;
+      }
       element.parentElement?.load?.();
     }
     // Run original workbook scripts in order only after the external data is ready.
