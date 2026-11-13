@@ -997,13 +997,13 @@
     "page1_listening": [
       {
         "1": "circle",
-        "4": "triangle",
-        "2": "square"
+        "2": "square",
+        "4": "triangle"
       },
       {
-        "3": "circle",
         "0": "triangle",
-        "1": "square"
+        "1": "square",
+        "3": "circle"
       },
       {
         "0": "circle",
@@ -1129,5 +1129,10 @@
     "page7_writing": "Character answer arrays for each writing sentence, in blank order.",
     "page8_fill": "Vocabulary strings for each group and sentence.",
     "page9_true_false": "true or false for each comprehension statement."
+  },
+  "_sourceNotes": {
+    "cautions": [
+      "Teacher confirmed Page 1 picture answers (A, A, A, B) and approved retaining the intended Page 6 component answers 足 and 口, including 足 for 跟，路，走 despite 走 not containing the foot radical. Original recordings confirm Page 1 shape, Page 3 and Page 5 listening keys."
+    ]
   }
 }
