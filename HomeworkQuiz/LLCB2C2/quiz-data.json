@@ -974,16 +974,16 @@
     "page9_passage": "大文看张莉家人的照片，照片里有两个人，左边是张莉的外公，右边是她外婆。张莉的外公以前是医生，可是外婆不工作。张莉的爸爸做生意，妈妈帮爸爸做生意。张莉也喜欢做生意，以后想跟她爸爸一样，也做生意。大文的爸爸妈妈都工作，爸爸在电脑公司上班，妈妈在银行上班。你觉得大文以后想做什么工作？"
   },
   "assets": {
-     "media1": "audio/B2-L02-Quiz1.mp3",
+    "media1": "audio/B2-L02-Quiz1.mp3",
     "media2": "audio/B2-L02-Quiz2.mp3",
     "media3": "audio/B2-L02-Test.mp3"
   },
   "answerKeys": {
     "page1_listening": [
       {
-        "3": "circle",
         "1": "triangle",
-        "2": "square"
+        "2": "square",
+        "3": "circle"
       },
       {
         "0": "circle",
@@ -1133,7 +1133,8 @@
       "Some HTML controls may assume Lesson 1 item counts; verify dynamic list rendering.",
       "C2-5 shared-component exercise includes 以，作，做，什, which do not all share 亻; review with teacher.",
       "The third C2-6 numbered item is printed as 2; displayed here as another writing row.",
-      "PDF test sentences and audio have been mapped by sequence."
+      "PDF test sentences and audio have been mapped by sequence.",
+      "Teacher confirmed all four Page 1 picture answers (A, A, A, B) and approved retaining the intended Page 6 workbook component answers 亻, 彳, 王 despite the character-group discrepancies. Original Quiz 1, Quiz 2 and Test recordings verify the existing Page 1 shape, Page 3 and Page 5 listening keys."
     ]
   }
 }
