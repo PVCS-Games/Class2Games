@@ -1397,7 +1397,10 @@
       "guǒ"
     ],
     "page6_radicals": [
-      "讠",
+      [
+        "言",
+        "讠"
+      ],
       "木"
     ],
     "page7_writing": [
@@ -1458,9 +1461,10 @@
       "media3": "audio/B2-L06-Test.mp3"
     },
     "cautions": [
-      "Chapter 6 uploaded recordings verified Page 1 shape listening, Page 3 vocabulary, and Page 5 both listening sections. Page 1 picture choices are not covered by the supplied recordings and remain unverified.",
+      "Chapter 6 uploaded recordings verified Page 1 shape listening, Page 3 vocabulary, and Page 5 both listening sections. Page 1 picture choices were verified against the illustrations and confirmed by the teacher.",
       "Six reading true/false items and four comprehension items are preserved from workbook.",
-      "Chapter 6 lessonDialogue is sourced verbatim from the user-provided dialogue; ensure index.html loads content.lessonDialogue rather than hardcoded lesson text."
+      "Chapter 6 lessonDialogue is sourced verbatim from the user-provided dialogue; ensure index.html loads content.lessonDialogue rather than hardcoded lesson text.",
+      "Teacher approved accepting 言 or 讠 for Page 6 radical question 1 and retaining 木 as the intended answer for question 2, preserving the printed character groups."
     ]
   }
 }
