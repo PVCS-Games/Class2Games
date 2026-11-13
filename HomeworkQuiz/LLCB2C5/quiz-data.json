@@ -1048,17 +1048,7 @@
       "黄色": "yellow",
       "变黄": "turn yellow"
     },
-    "page6_pinyinBank": [
-      "huáng",
-      "lǜ",
-      "sè",
-      "zǐ",
-      "hóng",
-      "bái",
-      "huā",
-      "shí",
-      "hòu"
-    ],
+    "page6_pinyinBank": ["hóng","shí","huáng","hòu","sè","huā","lǜ","bái","zǐ"],
     "page6_radicalQuestions": [
       "绿，红",
       "白，的"
