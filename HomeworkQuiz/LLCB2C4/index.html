@@ -396,20 +396,20 @@ document.getElementById('check').onclick=check;document.getElementById('submit')
  const $=id=>document.getElementById(id);
  const part1=window.QUIZ_DATA.content.page5_part1;
  const part2=window.QUIZ_DATA.content.page5_part2;
- const a=Array(6).fill(null),b=Array(5).fill(null);let results=false,submitted=false;
+ const a=Array(part1.length).fill(null),b=Array(part2.length).fill(null);let results=false,submitted=false;
  function renderPart(area,data,answers,type){$(area).replaceChildren();data.forEach((q,i)=>{
   const row=document.createElement('div');row.className='item5';
   const title=document.createElement('div');title.className='question5';title.textContent=type===1?(i+1)+'.':q.label+' '+q.pre+'（　　　）'+q.post;row.append(title);
   const opts=document.createElement('div');opts.className='optrow5';
-  q.opts.forEach((opt,j)=>{const btn=document.createElement('button');btn.type='button';btn.className='choice5'+(answers[i]===j?' selected':'')+(results&&answers[i]===j?(j===q.key?' good':' bad'):'');btn.innerHTML=opt+'<span class="py5">'+q.py[j]+'</span>';btn.onclick=()=>{if(submitted)return;answers[i]=j;results=false;$('result5').classList.remove('show');render()};opts.append(btn)});row.append(opts);
-  const english=document.createElement('div');english.className='hint5';english.textContent=q.en.join(' / ');row.append(english);
-  const feedback=document.createElement('div');feedback.className='feedback5';if(results)feedback.textContent=answers[i]===null?'Not answered':answers[i]===q.key?'Correct!':'Try again';row.append(feedback);$(area).append(row);
+  q.opts.forEach((opt,j)=>{const btn=document.createElement('button');btn.type='button';btn.className='choice5'+(answers[i]===j?' selected':'')+(results&&Number.isInteger(q.key)&&answers[i]===j?(j===q.key?' good':' bad'):'');btn.textContent=opt;const py=q.py?.[j];if(py){const hint=document.createElement('span');hint.className='py5';hint.textContent=py;btn.append(hint);}btn.onclick=()=>{if(submitted)return;answers[i]=j;results=false;$('result5').classList.remove('show');render()};opts.append(btn)});row.append(opts);
+  const english=document.createElement('div');english.className='hint5';english.textContent=(q.en||[]).join(' / ');row.append(english);
+  const feedback=document.createElement('div');feedback.className='feedback5';if(results)feedback.textContent=answers[i]===null?'Not answered':!Number.isInteger(q.key)?'Answer key unavailable':answers[i]===q.key?'Correct!':'Try again';row.append(feedback);$(area).append(row);
  })}
  function render(){renderPart('listen5',part1,a,1);renderPart('sentences5',part2,b,2)}
- function check(){results=true;render();const correct=a.filter((v,i)=>v===part1[i].key).length+b.filter((v,i)=>v===part2[i].key).length;$('result5').textContent='Page 5: '+correct+' / 11 correct (Part I: '+a.filter((v,i)=>v===part1[i].key).length+'/6; Part II: '+b.filter((v,i)=>v===part2[i].key).length+'/5).';$('result5').classList.add('show')}
+ function check(){results=true;render();const tally=(data,answers)=>({correct:data.filter((q,i)=>Number.isInteger(q.key)&&answers[i]===q.key).length,graded:data.filter(q=>Number.isInteger(q.key)).length});const x=tally(part1,a),y=tally(part2,b),total=part1.length+part2.length,graded=x.graded+y.graded;$('result5').textContent=graded?'Page 5: '+(x.correct+y.correct)+' / '+graded+' correct (Part I: '+x.correct+'/'+x.graded+'; Part II: '+y.correct+'/'+y.graded+').'+(graded<total?' '+(total-graded)+' ungraded.':''):'Page 5: '+a.concat(b).filter(v=>v!==null).length+' / '+total+' answered. Answer key unavailable; no score calculated.';$('result5').classList.add('show')}
  window.quizCapture[5]=()=>[
-  ...part1.map((q,i)=>({question:'Listening Part I '+(i+1),response:a[i]===null?'(blank)':q.opts[a[i]],expected:q.opts[q.key],correct:a[i]===q.key})),
-  ...part2.map((q,i)=>({question:'Listening Part II '+q.label,response:b[i]===null?'(blank)':q.opts[b[i]],expected:q.opts[q.key],correct:b[i]===q.key}))
+  ...part1.map((q,i)=>({question:'Listening Part I '+(i+1),response:a[i]===null?'(blank)':q.opts[a[i]],expected:Number.isInteger(q.key)?q.opts[q.key]:'(ungraded)',correct:Number.isInteger(q.key)?a[i]===q.key:null})),
+  ...part2.map((q,i)=>({question:'Listening Part II '+q.label,response:b[i]===null?'(blank)':q.opts[b[i]],expected:Number.isInteger(q.key)?q.opts[q.key]:'(ungraded)',correct:Number.isInteger(q.key)?b[i]===q.key:null}))
  ];
  $('check5').onclick=check;
  $('submit5').onclick=()=>{if(!$('student5').value.trim()||!$('classroom5').value.trim()){$('result5').textContent='Enter your name and class before submitting.';$('result5').classList.add('show');return}check();submitted=true;$('submit5').disabled=true};
