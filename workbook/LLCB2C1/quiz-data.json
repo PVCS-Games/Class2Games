@@ -452,5 +452,182 @@
       "start": 3,
       "title": "Part B — 比较喜欢"
     }
-  ]
+  ],
+  "reading": {
+    "title": "Reading Comprehension · 阅读理解",
+    "instruction": "Read Lily’s diary and answer the questions.",
+    "date": [
+      "十二月十九号",
+      "shí èr yuè shí jiǔ hào",
+      "December 19"
+    ],
+    "weather": [
+      "天气：晴",
+      "tiān qì qíng",
+      "Weather: sunny"
+    ],
+    "passage": [
+      [
+        "今天，大文跟心美一起来我家。",
+        "jīn tiān dà wén gēn xīn měi yì qǐ lái wǒ jiā",
+        "Today, Dawen and Xinmei came to my home together."
+      ],
+      [
+        "大文最喜欢看漫画书，我请他介绍他最喜欢的漫画书。",
+        "dà wén zuì xǐ huan kàn màn huà shū wǒ qǐng tā jiè shào tā zuì xǐ huan de màn huà shū",
+        "Dawen likes reading comic books the most. I asked him to introduce his favorite comic book."
+      ],
+      [
+        "心美比较喜欢画图。",
+        "xīn měi bǐ jiào xǐ huan huà tú",
+        "Xinmei prefers drawing."
+      ],
+      [
+        "我跟心美一起画雪人。",
+        "wǒ gēn xīn měi yì qǐ huà xuě rén",
+        "Xinmei and I drew a snowman together."
+      ],
+      [
+        "雪人的头很大，身体很小。",
+        "xuě rén de tóu hěn dà shēn tǐ hěn xiǎo",
+        "The snowman’s head is big and its body is small."
+      ],
+      [
+        "我很高兴他们来我家。",
+        "wǒ hěn gāo xìng tā men lái wǒ jiā",
+        "I am very happy they came to my home."
+      ]
+    ],
+    "questions": [
+      {
+        "prompt": [
+          "谁来张莉家？",
+          "shéi lái zhāng lì jiā",
+          "Who came to Lily’s home?"
+        ],
+        "options": [
+          [
+            "心美",
+            "xīn měi",
+            "Xinmei"
+          ],
+          [
+            "友朋",
+            "yǒu péng",
+            "Youpeng"
+          ],
+          [
+            "大文",
+            "dà wén",
+            "Dawen"
+          ],
+          [
+            "张莉",
+            "zhāng lì",
+            "Lily"
+          ]
+        ],
+        "answer": [
+          0,
+          2
+        ]
+      },
+      {
+        "prompt": [
+          "张莉请谁介绍漫画书？",
+          "zhāng lì qǐng shéi jiè shào màn huà shū",
+          "Whom did Lily ask to introduce a comic book?"
+        ],
+        "options": [
+          [
+            "心美",
+            "xīn měi",
+            "Xinmei"
+          ],
+          [
+            "友朋",
+            "yǒu péng",
+            "Youpeng"
+          ],
+          [
+            "大文",
+            "dà wén",
+            "Dawen"
+          ],
+          [
+            "张莉",
+            "zhāng lì",
+            "Lily"
+          ]
+        ],
+        "answer": [
+          2
+        ]
+      },
+      {
+        "prompt": [
+          "心美比较喜欢做什么？",
+          "xīn měi bǐ jiào xǐ huan zuò shén me",
+          "What does Xinmei prefer to do?"
+        ],
+        "options": [
+          [
+            "看漫画书",
+            "kàn màn huà shū",
+            "Read comics"
+          ],
+          [
+            "画图",
+            "huà tú",
+            "Draw pictures"
+          ],
+          [
+            "游泳",
+            "yóu yǒng",
+            "Swim"
+          ],
+          [
+            "看电视",
+            "kàn diàn shì",
+            "Watch TV"
+          ]
+        ],
+        "answer": [
+          1
+        ]
+      },
+      {
+        "prompt": [
+          "张莉跟谁一起画雪人？",
+          "zhāng lì gēn shéi yì qǐ huà xuě rén",
+          "Who drew a snowman with Lily?"
+        ],
+        "options": [
+          [
+            "大文",
+            "dà wén",
+            "Dawen"
+          ],
+          [
+            "心美",
+            "xīn měi",
+            "Xinmei"
+          ],
+          [
+            "东明",
+            "dōng míng",
+            "Dongming"
+          ],
+          [
+            "文文",
+            "wén wen",
+            "Wenwen"
+          ]
+        ],
+        "answer": [
+          1
+        ]
+      }
+    ]
+  }
 }
