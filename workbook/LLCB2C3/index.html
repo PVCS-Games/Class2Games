@@ -11,7 +11,7 @@
 .line[id^="line"] > div:nth-child(2) .han{font-size:clamp(29px,4.2vw,40px);line-height:1.7;overflow-wrap:anywhere}
 .picturegrid .card > .han{font-size:clamp(29px,4.5vw,42px);line-height:1.35;overflow-wrap:anywhere}
 .fill-question{padding:24px 0}.fill-figure{width:100%;max-width:825px;margin:8px auto 22px;background:#fff;border:1px solid #e4eaf3;border-radius:14px;padding:12px;text-align:center}.fill-figure img{display:block;width:100%;height:auto;max-height:340px;object-fit:contain;margin:auto}.fill-prompt{font-size:clamp(19px,2.5vw,25px);line-height:1.6;margin:8px 0 18px}.fill-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px}.fill-choices button{text-align:left;min-height:56px;font-size:17px;font-weight:600;padding:14px}.fill-question .bar{margin-top:16px}@media(max-width:650px){.fill-figure{padding:6px}.fill-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.fill-choices button{min-width:0;font-size:15px;padding:10px}}
-</style></head><body><header><h1 id="lessonTitle">Interactive Chinese Learning</h1><div class="sub" id="lessonSubtitle"></div><div class="bar"><button type="button" class="language-toggle" id="py" aria-pressed="false">Pinyin</button><button type="button" class="language-toggle" id="en" aria-pressed="false">English</button><label>Audio speed <select id="speed"><option value="1">Normal</option><option value="0.7">Slow</option></select></label><button onclick="pauseAudio()" id="pause">Pause / Resume</button><button onclick="stopAudio()">Stop</button></div><nav class="nav" id="nav"></nav><div id="audioStatus" role="status"></div></header><main class="stage"><section class="sheet" id="sheet"></section><p class="note">Preview only · scores stay on this page · no Google Form submission. Audio uses your browser’s Mandarin voice.</p></main><script>
+.fill-group-picture{text-align:center;margin:16px auto 20px;max-width:900px}.fill-group-picture img{display:block;width:100%;height:auto;max-height:350px;object-fit:contain;margin:auto}.fill-group-sentence{font-size:27px;line-height:2.5;margin:12px 0 20px;white-space:normal}.fill-blank{font-family:KaiTi,STKaiti,serif;font-size:25px;border-bottom:2px solid #4e79b9;background:#eff5ff;min-width:96px;padding:4px 12px;margin:0 3px;line-height:1.5;vertical-align:baseline}.fill-blank.active{background:#305bc5;color:#fff}.fill-choices button{min-width:105px}@media(max-width:650px){.fill-group-sentence{font-size:22px}.fill-blank{font-size:20px;min-width:78px}} </style></head><body><header><h1 id="lessonTitle">Interactive Chinese Learning</h1><div class="sub" id="lessonSubtitle"></div><div class="bar"><button type="button" class="language-toggle" id="py" aria-pressed="false">Pinyin</button><button type="button" class="language-toggle" id="en" aria-pressed="false">English</button><label>Audio speed <select id="speed"><option value="1">Normal</option><option value="0.7">Slow</option></select></label><button onclick="pauseAudio()" id="pause">Pause / Resume</button><button onclick="stopAudio()">Stop</button></div><nav class="nav" id="nav"></nav><div id="audioStatus" role="status"></div></header><main class="stage"><section class="sheet" id="sheet"></section><p class="note">Preview only · scores stay on this page · no Google Form submission. Audio uses your browser’s Mandarin voice.</p></main><script>
 let D;const $=id=>document.getElementById(id), tabs=['1 · Lesson Dialogue','2 · Vocabulary','3 · Listen & Repeat','4 · Sentence Unscramble','5 · Fill in the Blanks','6 · Reading Comprehension'];let readingPicks=[];let vocabIndex=0;let current=0,seq=[],picks=[],checked={},token=0;const h=s=>`<span class="han">${s}</span>`;const btn=(t,fn,cls='')=>`<button class="${cls}" onclick="${fn.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}">${t}</button>`;
 
 function ruby(s,p){let a=p.replace(/[,.。]/g,'').split(/\s+/),i=0;return '<span class="han">'+Array.from(s).map(c=>/[\u3400-\u9fff]/.test(c)?`<ruby>${c}<rt>${a[i++]||''}</rt></ruby>`:c).join('')+'</span>'}
@@ -75,7 +75,58 @@ function render(){ $('nav').innerHTML=tabs.map((t,i)=>i===5&&!D.reading?'':btn(t
 if(current===1){let i=vocabIndex,c=D.chars[i];s=`<h2>Vocabulary · 生字</h2><div class="vocab-index" aria-label="Choose character">${D.chars.map((v,j)=>btn(v[0],`goVocab(${j})`,'han '+(j===i?'active':''))).join('')}</div><article class="vocab-card"><div class="vocab-top"><strong>Character ${i+1} of ${D.chars.length}</strong>${btn('🔊 Listen',`say(D.chars[${i}][0])`)}</div><div class="vocab-main"><div class="vocab-face"><div class="vocab-pinyin">${c[1]}</div><div class="vocab-glyph han">${c[0]}</div><div class="vocab-meaning">${c[2].charAt(0).toUpperCase()+c[2].slice(1)}</div></div><div class="vocab-info"><div><div class="vocab-label">Radical 部首</div><div class="vocab-value han">${c[3]}</div></div><div><div class="vocab-label">Stroke count 笔画</div><div class="vocab-value">${c[4]}</div></div><div class="vocab-examples"><div class="vocab-label">Example words</div>${c[6].map((e,j)=>`<div class="vocab-example"><div><span class="han">${e[0]}</span><small>${e[1]}</small></div>${btn('🔊',`say(D.chars[${i}][6][${j}][0])`)}</div>`).join('')}</div></div></div><div class="vocab-strokes"><h3>Stroke Order 笔顺</h3><div class="stroke-player"><img id="strokeFrame" src="${vectorData[i]?strokeURI(vectorData[i],0):'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22/%3E'}" alt="Animated stroke order for ${c[0]}"><div id="strokeProgress" aria-live="polite">Stroke 1 / ${c[4]}</div><div class="bar" style="justify-content:center">${btn('▶ Animate',`animateStroke(${i})`,'primary')}${btn('↻ Replay',`animateStroke(${i})`)}${btn('Pause',`stopStroke()`)}${btn('← Stroke',`stepStroke(${i},-1)`)}${btn('Stroke →',`stepStroke(${i},1)`)}<label>Speed <select id="strokeSpeed"><option value="700">Normal</option><option value="1250">Slow</option></select></label></div></div><details><summary>Step-by-step 笔顺</summary><div class="vocab-diagrams">${c[5].map((a,j)=>`<img src="${a}" alt="${c[0]} stroke order diagram ${j+1}">`).join('')}</div></details><div class="bar" style="justify-content:center">${btn('Practice Writing',`practice(${i})`,'primary')}${btn('Clear',`clearCanvas(${i})`)}</div><canvas class="practice" id="canvas${i}" width="240" height="240"></canvas></div><div class="vocab-bottom"><button onclick="goVocab(${i-1})" ${i===0?'disabled':''}>← Previous</button><span class="note">${i+1} / ${D.chars.length}</span><button class="primary" onclick="goVocab(${i+1})" ${i===D.chars.length-1?'disabled':''}>Next →</button></div></article>`}
 if(current===2){s='<h2>Listen and Repeat · 听一听</h2><p>Click a picture to listen. Repeat the word aloud.</p>'+btn('▶ Play All','speakList(D.words.map((w,i)=>[w[0],"word"+i]))','primary')+'<div class="grid picturegrid" style="margin-top:15px">';D.words.forEach((w,i)=>{s+=`<button class="card" id="word${i}" onclick="speakList([[D.words[${i}][0],'word${i}']])"><img src="${w[3]}" alt="${w[0]}"><div class="han">${w[0]}</div><div class="py">${w[1]}</div><div class="en">${w[2]}</div>🔊</button>`});s+='</div>'}
 if(current===3){s='<h2>Sentence Unscramble · 句子重组</h2><p>Click the words in the correct order. Click an answer word to remove it. Use Listen to hear the word bank, and Read Sentence to hear your arrangement.</p>';D.uns.forEach(([w,k],i)=>{let a=seq[i];s+=`<div class="q"><strong>Question ${i+1}</strong> ${btn('🔊 Listen',`listenU(${i})`)}<div class="bar">${w.map((x,j)=>`<button class="han" ${a.includes(j)?'disabled':''} onclick="add(${i},${j})">${x}</button>`).join('')}</div><div class="answer">${a.length?a.map(j=>btn(w[j],`remove(${i},${j})`,'han')).join(''):'<span class="note">Your sentence goes here...</span>'}</div>${btn('Check Answer',`checkU(${i})`,'primary')} ${btn('Reset',`resetU(${i})`)} ${btn('🔊 Read Sentence',`readU(${i})`)} <span id="fu${i}" class="feedback">${checked['u'+i]||''}</span></div>`});s+='<p id="scoreU"></p>'}
-if(current===4){s='<h2>Fill in the Blanks · 选词填空</h2><p>Look at the pictures and choose the correct answer. Then read the sentence aloud.</p>';D.qs.forEach((q,i)=>{const section=D.fillSections.find(x=>x.start===i);if(section)s+=`<h3>${section.title}</h3>`;s+=`<div class="q fill-question"><div class="fill-figure"><img src="${q[5]}" alt="Workbook picture for question ${i+1}" onload="cropFillImage(this,${i})"></div><div class="fill-prompt"><strong>${i-(D.fillSections.filter(x=>x.start<=i).at(-1)?.start??0)+1}.</strong> ${h(q[0]+(picks[i]<0?'＿＿＿＿':q[2][picks[i]])+q[1])}</div><div class="options fill-choices">${q[2].map((w,j)=>`<button class="${picks[i]===j?'active':''}" onclick="pick(${i},${j})">${String.fromCharCode(65+j)}. ${h(w)}</button>`).join('')}</div><div class="bar">${btn('Check Answer',`checkF(${i})`,'primary')}${btn('🔊 Read Sentence',`readF(${i})`)}<span class="feedback">${checked['f'+i]||''}</span></div></div>`});s+='<p id="scoreF"></p>'}if(current===5&&D.reading)s=renderReading();$('sheet').innerHTML=s;score();if($('scoreR'))$('scoreR').textContent='Correct: '+D.reading.questions.filter((q,i)=>checked['r'+i]?.includes('good')).length+' / '+D.reading.questions.length;if(current===1)initVector(vocabIndex)}
+if(current===4){s=renderChapter3Fill();}if(current===5&&D.reading)s=renderReading();$('sheet').innerHTML=s;score();if($('scoreR'))$('scoreR').textContent='Correct: '+D.reading.questions.filter((q,i)=>checked['r'+i]?.includes('good')).length+' / '+D.reading.questions.length;if(current===1)initVector(vocabIndex)}
+
+let fillActive=0;
+function fillWord(g,b){
+ const x=D.fillGroups[g],i=x.start+b,j=picks[i];
+ return j<0?'＿＿＿':x.options[j];
+}
+function renderChapter3Fill(){
+ let s='<h2>Fill in the Blanks · 选词填空</h2><p>Look at the centered workbook picture. Click a blank, then choose a word from the word bank.</p>';
+ D.fillGroups.forEach((g,gid)=>{
+  const filled=g.answers.map((_,b)=>fillWord(gid,b));
+  let sentence='';
+  for(let j=0;j<g.answers.length;j++){
+   const index=g.start+j;
+   sentence+=g.parts[j]+'<button class="fill-blank '+(fillActive===index?'active':'')+'" onclick="fillActive='+index+';render()" aria-label="Blank '+(j+1)+'">'+filled[j]+'</button>';
+  }
+  sentence+=g.parts[g.parts.length-1];
+  const status=g.answers.map((_,j)=>checked['f'+(g.start+j)]||'').filter(Boolean);
+  s+='<article class="q fill-question"><h3>'+g.title+'</h3><div class="fill-group-picture"><img src="'+g.picture+'" alt="Original workbook illustration"></div><div class="fill-group-sentence han">'+sentence+'</div><div class="options fill-choices">'+g.options.map((w,j)=>'<button onclick="chooseFill('+gid+','+j+')">'+String.fromCharCode(65+j)+'. '+h(w)+'</button>').join('')+'</div><div class="bar">'+btn('Check Answer','checkFillGroup('+gid+')','primary')+btn('Reset','resetFillGroup('+gid+')')+btn('🔊 Read Sentence','readFillGroup('+gid+')')+'<span class="feedback">'+(status.length===g.answers.length?(status.every(t=>t.includes('good'))?'<span class="good">All correct!</span>':'<span class="bad">Check the blanks and retry.</span>'):'')+'</span></div></article>';
+ });
+ return s+'<p id="scoreF"></p>';
+}
+function chooseFill(gid,opt){
+ const g=D.fillGroups[gid];
+ let i=fillActive;
+ if(i<g.start||i>=g.end)i=g.start;
+ picks[i]=opt;
+ delete checked['f'+i];
+ const next=Array.from({length:g.end-g.start},(_,j)=>g.start+j).find(x=>picks[x]<0);
+ fillActive=next===undefined?i:next;
+ render();
+}
+function checkFillGroup(gid){
+ const g=D.fillGroups[gid];
+ for(let i=g.start;i<g.end;i++){
+  checked['f'+i]=picks[i]===D.qs[i][3]?'<span class="good">Correct!</span>':'<span class="bad">Try again.</span>';
+ }
+ render();
+}
+function resetFillGroup(gid){
+ const g=D.fillGroups[gid];
+ for(let i=g.start;i<g.end;i++){picks[i]=-1;delete checked['f'+i];}
+ fillActive=g.start;
+ render();
+}
+function readFillGroup(gid){
+ const g=D.fillGroups[gid];
+ const sentence=g.parts.map((p,i)=>p+(i<g.answers.length?fillWord(gid,i):'')).join('');
+ if(g.answers.some((_,i)=>picks[g.start+i]<0)){audioStatus('Fill in all blanks before reading.');return;}
+ say(sentence);
+}
+
 function readingRow(r){return ruby(r[0],r[1])+`<div class="en">${r[2]}</div>`}
 function renderReading(){const r=D.reading;let s=`<h2>${r.title}</h2><p>${r.instruction}</p>${btn('▶ Play All','playReading()','primary')}<article class="diary"><div class="diary-date">${readingRow(r.date)} ${readingRow(r.weather)} ☀️</div>`;r.passage.forEach((line,i)=>{s+=`<div class="diary-line" id="diary${i}"><div>${readingRow(line)}</div>${btn('🔊',`speakList([[D.reading.passage[${i}][0],"diary${i}"]])`)}</div>`});s+='</article>';r.questions.forEach((q,i)=>{s+=`<div class="q reading-q"><strong>${i+1}.</strong> ${readingRow(q.prompt)} ${btn('🔊 Listen',`listenReading(${i})`)}${q.answer.length>1?'<p class="note">There are two correct answers. Select both.</p>':''}<div class="reading-options">${q.options.map((o,j)=>`<button aria-pressed="${readingPicks[i].includes(j)}" class="${readingPicks[i].includes(j)?'active':''}" onclick="pickReading(${i},${j})">${String.fromCharCode(65+j)}. ${readingRow(o)}</button>`).join('')}</div><div class="bar">${btn('Check Answer',`checkReading(${i})`,'primary')}${btn('Reset',`resetReading(${i})`)}<span class="feedback">${checked['r'+i]||''}</span></div></div>`});return s+'<p id="scoreR"></p>'}
 function playReading(){speakList([[D.reading.date[0],''],[D.reading.weather[0],''],...D.reading.passage.map((r,i)=>[r[0],'diary'+i])])}
